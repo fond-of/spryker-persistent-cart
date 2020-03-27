@@ -9,11 +9,12 @@
     }
   ],
   "require": {
-    "php": ">=7.1"
+    "php": ">=7.1",
+    "spryker/persistent-cart": "^1.2.0 || ^2.0.0 || ^3.0.0"
   },
   "require-dev": {
     "codeception/codeception": "^2.4",
-    "fond-of-codeception/spryker": "dev-master as 1.0.0",
+    "fond-of-codeception/spryker": "dev-master",
     "php-coveralls/php-coveralls": "^2.1",
     "phpro/grumphp": "^0.14",
     "sebastian/phpcpd": "^4.0",
@@ -28,7 +29,8 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "FondOfSpryker\\": "tests/FondOfSpryker/"
+      "FondOfSpryker\\": "tests/FondOfSpryker/",
+      "Generated\\": "src/Generated/"
     }
   }
 }
