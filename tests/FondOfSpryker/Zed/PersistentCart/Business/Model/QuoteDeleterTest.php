@@ -99,11 +99,23 @@ class QuoteDeleterTest extends Unit
 
         $this->idQuote = 2;
 
-        $this->quoteDeleter = new QuoteDeleter(
+        $this->quoteDeleter = new class(
             $this->persistentCartToQuoteFacadeInterfaceMock,
             $this->quoteResponseExpanderInterfaceMock,
             $this->persistentCartToMessengerFacadeInterfaceMock
-        );
+        ) extends QuoteDeleter {
+            /**
+             * @param string $permissionKey
+             * @param int|string $identifier
+             * @param string|int|array|null $context
+             *
+             * @return bool
+             */
+            protected function can($permissionKey, $identifier, $context = null): bool
+            {
+                return true;
+            }
+        };
     }
 
     /**
@@ -111,8 +123,7 @@ class QuoteDeleterTest extends Unit
      */
     public function testIsQuoteDeleteAllowed(): void
     {
-
-        $reflectionMethod = self::getMethod('isQuoteDeleteAllowed');
+        $reflectionMethod = $this->getMethod('isQuoteDeleteAllowed');
 
         $this->quoteTransferMock->expects($this->atLeastOnce())
             ->method('getCustomerReference')
